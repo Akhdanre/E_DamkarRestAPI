@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
     $db = new database;
 
-    $db->query('SELECT * FROM user_listdata WHERE email = :email AND password = :pass');
+    $db->query('SELECT id, email, namaLengkap FROM user_listdata WHERE email = :email AND password = :pass');
     $db->bind(':email', $email);
     $db->bind(':pass', $pass);
     $data = $db->single();
@@ -18,9 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     } else {
         $json = [
             'kondisi' => true,
-            'email' => $data['email'],
-            'namaLengkap' => $data['namaLengkap'],
-
+            'userData' => $data
         ];
     }
 
