@@ -1,5 +1,7 @@
 <?php
 
+header('Content-Type: application/json');
+
 require_once 'database.php';
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
@@ -14,14 +16,17 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $data = $db->single();
 
     if ($data == null) {
+        http_response_code(400);
         $json = ['kondisi' => false];
     } else {
+        http_response_code(200);
         $json = [
             'kondisi' => true,
-            'userData' => $data
+            'data' => $data
         ];
     }
 
     $json = json_encode($json);
+
     echo $json;
 }
